@@ -1,0 +1,11 @@
+# add_subdirectory(Components)
+add_subdirectory(Engine)
+add_subdirectory(Utils)
+# add_subdirectory(UI)
+
+include_directories(${SDL_Include})
+link_directories(${SDL_Library_Path})
+link_libraries(SDL2)
+add_executable(test main.cpp)
+target_include_directories(test PUBLIC ${LOCAL_INCLUDE_DIRS})
+target_link_libraries(test PUBLIC Engine)
