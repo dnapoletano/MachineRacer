@@ -58,7 +58,7 @@ public:
         }
         _Sprites.push_back(
           SpriteComponent{SrcPos,ImgSize,RescaleFactorX,RescaleFactorY,
-                          &_Texture,Vector2D{static_cast<float>(i),static_cast<float>(j)}}
+                          &_Texture,Vector2D{static_cast<float>(i) * ImgSize * RescaleFactorX,static_cast<float>(j) * ImgSize * RescaleFactorY}}
         );
 
         map.ignore();
@@ -75,6 +75,21 @@ public:
   }
 };
 
+class Player {
+private:
+  std::unique_ptr<SpriteComponent> _SpriteComponent;
+  // InputComponent
+public:
+  Player(const std::pair<int,int>& SrcPos, const int imgsize, const int rescalefactorX,
+         const int rescalefactorY, TextureWrapper *Texture, const Vector2D& Position);
+  Player(Player&& player);
+
+  bool SetTexture(SDL_Renderer * Renderer);
+  inline bool Update() {return _SpriteComponent->Update();}
+  inline bool Draw() {return _SpriteComponent->Draw();}
+  inline auto GetSpriteComponent() {return _SpriteComponent.get();}
+};
+
 class Engine {
 public:
   Engine(const std::string& title, const int width, const int height, const bool fullscreen);
@@ -89,6 +104,7 @@ private:
   SDL_Window*   _Window;
   SDL_Renderer* _Renderer;
   Map _map;
+  std::unique_ptr<Player> _Player;
 };
 
 

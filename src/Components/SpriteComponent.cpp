@@ -10,8 +10,8 @@ SpriteComponent::SpriteComponent(const std::pair<int,int>& SrcPos,const int imgs
   _TransformComponent{new TransformComponent{Position}}
 {
   _SrcRect = SDL_Rect{SrcPos.first,SrcPos.second,imgsize,imgsize};
-  _DstRect = SDL_Rect{static_cast<int>(Position.x) * imgsize * rescalefactorX,
-                      static_cast<int>(Position.y) * imgsize * rescalefactorY,
+  _DstRect = SDL_Rect{static_cast<int>(Position.x),
+                      static_cast<int>(Position.y),
                       imgsize * rescalefactorX, imgsize * rescalefactorY};
 }
 

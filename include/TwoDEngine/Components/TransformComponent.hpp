@@ -6,7 +6,7 @@
 
 class TransformComponent : public ComponentBase {
 private:
-  int _Speed{0};
+  int _Speed{5};
   Vector2D _Position;
   Vector2D _Velocity;
 
