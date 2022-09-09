@@ -11,13 +11,7 @@ int main(int argc, char **argv)
   SDL_Init(SDL_INIT_EVERYTHING);
   Engine eng{"Test",768,768,false};
 
-  eng.AddTexture("maptiles", "../Maps/TileSet.png");
-
-  while(eng.isRunning(event)) {
-    SDL_RenderClear(eng.GetRenderer());
-    eng.DrawMap();
-    SDL_RenderPresent(eng.GetRenderer());
-  }
+  while(eng.isRunning(event)) { }
 
   SDL_Quit();
 

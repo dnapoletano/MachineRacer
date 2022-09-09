@@ -1,9 +1,8 @@
 set(Components_SOURCES
-  Component.cpp
   TransformComponent.cpp
   SpriteComponent.cpp
-  InputComponent.cpp
-  CollisionComponent.cpp
+  # InputComponent.cpp
+  # CollisionComponent.cpp
 )
 
 include_directories(${SDL_Include})

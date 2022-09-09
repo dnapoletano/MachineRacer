@@ -9,3 +9,4 @@ add_library(Engine ${Engine_SOURCES})
 
 set_target_properties(Engine PROPERTIES PREFIX "libTwoDEngine")
 target_link_libraries(Engine PUBLIC Utils)
+target_link_libraries(Engine PUBLIC Components)
