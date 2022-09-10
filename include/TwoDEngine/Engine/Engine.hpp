@@ -2,6 +2,7 @@
 #define TWO2DENGINE_ENGINE_ENGINE_HPP
 
 #include "TwoDEngine/Components/SpriteComponent.hpp"
+#include "TwoDEngine/Components/InputComponent.hpp"
 
 #include <fstream>
 #include <map>
@@ -78,6 +79,7 @@ public:
 class Player {
 private:
   std::unique_ptr<SpriteComponent> _SpriteComponent;
+  std::unique_ptr<InputComponent>  _InputComponent;
   // InputComponent
 public:
   Player(const std::pair<int,int>& SrcPos, const int imgsize, const int rescalefactorX,
@@ -85,9 +87,13 @@ public:
   Player(Player&& player);
 
   bool SetTexture(SDL_Renderer * Renderer);
-  inline bool Update() {return _SpriteComponent->Update();}
+  inline bool Update(SDL_Event * event) {
+    _InputComponent->SetEvent(event);
+    return _InputComponent->Update() and _SpriteComponent->Update();
+  }
   inline bool Draw() {return _SpriteComponent->Draw();}
   inline auto GetSpriteComponent() {return _SpriteComponent.get();}
+  inline auto GetInputComponent() {return _InputComponent.get();}
 };
 
 class Engine {

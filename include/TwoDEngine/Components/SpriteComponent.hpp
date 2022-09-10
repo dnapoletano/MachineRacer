@@ -47,7 +47,7 @@ public:
   bool Draw() override;
 
   inline void SetTexture(TextureWrapper* texture) {_Texture  = texture;}
-  inline auto GetTextureComponent() {return _TransformComponent.get();}
+  inline auto GetTransformComponent() {return _TransformComponent.get();}
 };
 
 #endif // TWO2DENGINE_COMPONENTS_SPRITECOMPONENT_H

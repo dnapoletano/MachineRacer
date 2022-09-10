@@ -10,7 +10,8 @@ Player::Player(const std::pair<int,int>& SrcPos, const int imgsize, const int re
                const int rescalefactorY, TextureWrapper *Texture, const Vector2D& Position) :
   _SpriteComponent{new SpriteComponent(
     SrcPos, imgsize, rescalefactorX, rescalefactorY, Texture, Position
-  )}
+  )},
+  _InputComponent{new InputComponent{_SpriteComponent->GetTransformComponent()}}
 {
 
 }
@@ -39,9 +40,9 @@ Engine::~Engine()
 
 bool Engine::isRunning(SDL_Event& event)
 {
-  _Player->Update();
   /// To make it continuous SDL_PollEvent
   SDL_WaitEvent(&event);
+  _Player->Update(&event);
   if(event.type == SDL_QUIT) return false;
 
   SDL_RenderClear(_Renderer);

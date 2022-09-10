@@ -30,7 +30,7 @@ bool SpriteComponent::Update()
 {
   bool res = _TransformComponent->Update();
   _DstRect.x = static_cast<int>(_TransformComponent->GetPosition().x);
-  _DstRect.x = static_cast<int>(_TransformComponent->GetPosition().y);
+  _DstRect.y = static_cast<int>(_TransformComponent->GetPosition().y);
   return res;
 }
 
