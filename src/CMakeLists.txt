@@ -1,7 +1,7 @@
 add_subdirectory(Components)
-add_subdirectory(Utils)
 # add_subdirectory(UI)
 add_subdirectory(Engine)
+# add_subdirectory(Utils)
 
 include_directories(${SDL_Include})
 link_directories(${SDL_Library_Path})

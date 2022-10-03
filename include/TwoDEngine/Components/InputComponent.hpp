@@ -24,7 +24,6 @@ public:
         switch(_Event->key.keysym.sym) {
           case SDLK_RIGHT:
           case SDLK_d:
-            std::cout << "Pressed Right Button! " << std::endl;
             _TransformComponent->Velocity().x = 1;
             break;
           case SDLK_UP:

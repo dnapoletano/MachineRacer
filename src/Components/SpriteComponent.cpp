@@ -4,14 +4,13 @@
 
 SpriteComponent::SpriteComponent(const std::pair<int,int>& SrcPos,const int imgsize,
                                  const int rescalefactorX, const int rescalefactorY,
-                                 TextureWrapper * Texture, const Vector2D& Position) :
+                                 TextureWrapper * Texture, const Vector2D<int>& Position) :
   _ImgSize{imgsize}, _RescaleFactorX{rescalefactorX},
   _RescaleFactorY{rescalefactorY}, _Texture{Texture},
   _TransformComponent{new TransformComponent{Position}}
 {
   _SrcRect = SDL_Rect{SrcPos.first,SrcPos.second,imgsize,imgsize};
-  _DstRect = SDL_Rect{static_cast<int>(Position.x),
-                      static_cast<int>(Position.y),
+  _DstRect = SDL_Rect{Position.x, Position.y,
                       imgsize * rescalefactorX, imgsize * rescalefactorY};
 }
 
@@ -29,8 +28,8 @@ bool SpriteComponent::Init()
 bool SpriteComponent::Update()
 {
   bool res = _TransformComponent->Update();
-  _DstRect.x = static_cast<int>(_TransformComponent->GetPosition().x);
-  _DstRect.y = static_cast<int>(_TransformComponent->GetPosition().y);
+  _DstRect.x = _TransformComponent->GetPosition().x;
+  _DstRect.y = _TransformComponent->GetPosition().y;
   return res;
 }
 

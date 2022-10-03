@@ -38,7 +38,7 @@ private:
 
 public:
   SpriteComponent(const std::pair<int,int>& SrcPos, const int imgsize, const int rescalefactorX,
-                  const int rescalefactorY, TextureWrapper *Texture, const Vector2D& Position);
+                  const int rescalefactorY, TextureWrapper *Texture, const Vector2D<int>& Position);
   SpriteComponent(SpriteComponent&& sc);
   ~SpriteComponent() override {}
 
@@ -48,6 +48,7 @@ public:
 
   inline void SetTexture(TextureWrapper* texture) {_Texture  = texture;}
   inline auto GetTransformComponent() {return _TransformComponent.get();}
+  inline auto GetDestRect() {return &_DstRect;};
 };
 
 #endif // TWO2DENGINE_COMPONENTS_SPRITECOMPONENT_H

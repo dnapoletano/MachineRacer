@@ -10,8 +10,8 @@
 #include <vector>
 
 union SDL_Event;
-class SDL_Window;
-class SDL_Renderer;
+struct SDL_Window;
+struct SDL_Renderer;
 
 class Map {
 private:
@@ -34,8 +34,8 @@ public:
     std::ifstream map {"/Users/Nappo/games/machineracing/Maps/map.map", std::ios::in};
     int WindowHeight = 0, WindowWidth = 0;
     SDL_GetWindowSize(Window, &WindowHeight, &WindowWidth);
-    const int RescaleFactorY = WindowHeight/256;
     const int RescaleFactorX = WindowWidth/256;
+    const int RescaleFactorY = WindowHeight/256;
     const int TileSetSize = 32;
     const int ImgSize = 8;
 
@@ -59,7 +59,7 @@ public:
         }
         _Sprites.push_back(
           SpriteComponent{SrcPos,ImgSize,RescaleFactorX,RescaleFactorY,
-                          &_Texture,Vector2D{static_cast<float>(i) * ImgSize * RescaleFactorX,static_cast<float>(j) * ImgSize * RescaleFactorY}}
+                          &_Texture,Vector2D{i * ImgSize * RescaleFactorX,j * ImgSize * RescaleFactorY}}
         );
 
         map.ignore();
@@ -83,15 +83,18 @@ private:
   // InputComponent
 public:
   Player(const std::pair<int,int>& SrcPos, const int imgsize, const int rescalefactorX,
-         const int rescalefactorY, TextureWrapper *Texture, const Vector2D& Position);
+         const int rescalefactorY, TextureWrapper *Texture, const Vector2D<int>& Position);
   Player(Player&& player);
 
   bool SetTexture(SDL_Renderer * Renderer);
+
   inline bool Update(SDL_Event * event) {
     _InputComponent->SetEvent(event);
+    _InputComponent->Update();
     return _InputComponent->Update() and _SpriteComponent->Update();
   }
-  inline bool Draw() {return _SpriteComponent->Draw();}
+
+  inline bool Draw() { return _SpriteComponent->Draw(); }
   inline auto GetSpriteComponent() {return _SpriteComponent.get();}
   inline auto GetInputComponent() {return _InputComponent.get();}
 };
@@ -107,10 +110,14 @@ public:
   inline SDL_Window* GetWindow() const {return _Window;}
 
 private:
+  int _WindowWidth;
+  int _WindowHeight;
   SDL_Window*   _Window;
   SDL_Renderer* _Renderer;
+  std::vector<Vector2D<int>> _Points;
   Map _map;
   std::unique_ptr<Player> _Player;
+  void DrawLines();
 };
 
 
